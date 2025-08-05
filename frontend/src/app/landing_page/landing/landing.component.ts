@@ -23,15 +23,30 @@ export class LandingComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  // onSubmit() {
+  //   this.userService.registerUser(this.user).subscribe({
+  //     next: (res) => {
+  //       console.log('Registered:', res);
+  //       this.router.navigate(['/registered']);
+  //     },
+  //     error: (err) => {
+  //       console.error('Registration failed:', err);
+  //     }
+  //   });
+  // }
   onSubmit() {
-    this.userService.registerUser(this.user).subscribe({
-      next: (res) => {
-        console.log('Registered:', res);
-        this.router.navigate(['/registered']);
-      },
-      error: (err) => {
+  this.userService.registerUser(this.user).subscribe({
+    next: (res) => {
+      console.log('Registered:', res);
+      this.router.navigate(['/registered']);
+    },
+    error: (err) => {
+      if (err.status === 409) {
+        alert('User with this email or mobile number already exists!');
+      } else {
         console.error('Registration failed:', err);
       }
-    });
-  }
+    }
+  });
+}
 }

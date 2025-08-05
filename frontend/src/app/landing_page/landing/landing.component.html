@@ -1,4 +1,4 @@
-<div class="landing-wrapper">
+<!-- <div class="landing-wrapper">
   <form class ="form-box" (ngSubmit)="onSubmit()">
   <h2>Register</h2>
   <input class="input" type="text" [(ngModel)]="user.fullName" name="fullName" placeholder="Full Name" required />
@@ -8,4 +8,39 @@
   <input class="input" type="date" [(ngModel)]="user.dob" name="dob" placeholder="Date of Birth" required />
   <button class="btn btn-primary" type="submit">Register</button>
 </form>
+</div> -->
+<div class="landing-wrapper">
+  <form class="form-box" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <h2>Register</h2>
+    <input class="input" type="text" [(ngModel)]="user.fullName" name="fullName" placeholder="Full Name" required
+      #fullName="ngModel" />
+    <div *ngIf="fullName.invalid && fullName.touched" class="text-danger">
+      Full Name is required.
+    </div>
+    <input class="input" type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" #email="ngModel" />
+    <div *ngIf="email.invalid && email.touched" class="text-danger">
+      <div *ngIf="email.errors?.['required']">Email is required.</div>
+      <div *ngIf="email.errors?.['pattern']">Please enter a valid email (e.g. abc&#64;gmail.com).</div>
+    </div>
+    <input class="input" type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required
+      #password="ngModel" />
+    <div *ngIf="password.invalid && password.touched" class="text-danger">
+      Password is required.
+    </div>
+    <input class="input" type="text" [(ngModel)]="user.mobile" name="mobile" placeholder="Mobile Number" required
+      pattern="^[0-9]{10}$" #mobile="ngModel" />
+    <div *ngIf="mobile.invalid && mobile.touched" class="text-danger">
+      <div *ngIf="mobile.errors?.['required']">Mobile number is required.</div>
+      <div *ngIf="mobile.errors?.['pattern']">Mobile number must be exactly 10 digits.</div>
+    </div>
+    <input class="input" type="date" [(ngModel)]="user.dob" name="dob" placeholder="Date of Birth" required
+      #dob="ngModel" />
+    <div *ngIf="dob.invalid && dob.touched" class="text-danger">
+      Date of Birth is required.
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="registerForm.invalid">
+      Register
+    </button>
+  </form>
 </div>

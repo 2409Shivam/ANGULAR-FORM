@@ -18,11 +18,14 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/register`, user);
-  }
+  // registerUser(user: User): Observable<User> {
+  //   return this.http.post<User>(`${this.apiUrl}/register`, user);
+  // }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
+  registerUser(user: User) {
+  return this.http.post<User>('http://localhost:3000/api/register', user);
+}
 }
